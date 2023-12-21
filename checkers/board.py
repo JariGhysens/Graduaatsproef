@@ -5,11 +5,13 @@ from .constants import BLACK, ROWS, RED, SQUARE_SIZE, COLS, WHITE
 class Board: 
     def __init__(self):
         #2d lijst van de pieces
+        
         self.board = []
         self.selected_piece = None
         self.red_left = self.white_left = 12
         self.red_kings = self.white_kings = 0
         self.create_board()
+        
 
 
 #inkleuren achtergrond 
