@@ -6,7 +6,6 @@ class Board:
     def __init__(self):
         #2d lijst van de pieces
         self.board = []
-        self.selected_piece = None
         self.red_left = self.white_left = 12
         self.red_kings = self.white_kings = 0
         self.create_board()
@@ -18,6 +17,21 @@ class Board:
         for row in range(ROWS):
             for col in range(row % 2, COLS, 2):
                 pygame.draw.rect(win, WHITE, (row*SQUARE_SIZE, col*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
+
+#veplaatsen pieces 
+    def move(self, piece, row, col):
+        self.board[piece.row][piece.col], self.board[row][col] = self.board[row][col], self.board[piece.row][piece.col]
+        piece.move(row, col)
+        if row == ROWS or row == 0:
+            piece.make_King()
+            if piece.color == WHITE:
+                self.white_kings += 1
+            else:
+                self.red_kings += 1
+            
+   #geselecteerde pieve         
+    def get_piece(self, row, col):
+        return self.board[row][col]
 
 #aanmaken pieces op ons board
     def create_board(self):
@@ -41,3 +55,23 @@ class Board:
                 piece = self.board[row][col]
                 if piece != 0:
                     piece.draw(win)
+
+
+    def get_valid_moves(self, piece):
+        moves = {}
+        left = piece.col -1
+        right = piece.col + 1
+        row = piece.row
+
+        if piece.color == RED or piece.king:
+            pass
+        if piece.color == WHITE or piece.king:
+            pass
+        
+        return moves
+    
+    def _traverse_left(self, start, stop, step, color, left, skipped=[]):
+        pass
+
+    def _traverse_right(self, start, stop, step, color, right, skipped=[]):
+        pass
