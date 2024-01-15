@@ -7,7 +7,7 @@ SQUARE_SIZE = WIDTH // COLS
 # RGB
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
-BLUE = (0, 0, 255)
+BLUE = (50, 121, 168)
 RED = (255, 0, 0)
 GREY = (128, 128, 128)
 

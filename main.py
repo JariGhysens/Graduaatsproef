@@ -1,12 +1,14 @@
 import pygame
-from checkers.constants import WIDTH, HEIGHT, SQUARE_SIZE, RED
+from checkers.constants import WIDTH, HEIGHT, SQUARE_SIZE
 from checkers.game import Game
 
-
 FPS = 60
-
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Checkers')
+
+checkers_rect = pygame.Rect(WIDTH // 2 - 75, 250, 150, 50)
+chess_rect = pygame.Rect(WIDTH // 2 - 75, 350, 150, 50)
+quit_rect = pygame.Rect(WIDTH // 2 - 75, 450, 150, 50)
 
 def get_row_col_from_mouse(pos):
     x, y = pos
@@ -14,29 +16,85 @@ def get_row_col_from_mouse(pos):
     col = x // SQUARE_SIZE
     return row, col
 
+def draw_main_screen():
+    WIN.fill((50, 121, 168))
+
+    welcome_font = pygame.font.SysFont(None, 36)
+    welcome_text = welcome_font.render("Welcome", True, (255, 255, 255))
+
+    WIN.blit(welcome_text, (WIDTH // 2 - welcome_text.get_width() // 2, 200))
+
+    button_font = pygame.font.SysFont(None, 28)
+
+    # Checkers-knop
+    checkers_button = button_font.render("Checkers", True, (255, 255, 255))
+    pygame.draw.rect(WIN, (28, 28, 28), checkers_rect)
+    WIN.blit(checkers_button, (checkers_rect.centerx - checkers_button.get_width() // 2, checkers_rect.centery - checkers_button.get_height() // 2))
+
+    # Chess-knop
+    chess_button = button_font.render("Chess", True, (255, 255, 255))
+    pygame.draw.rect(WIN, (28, 28, 28), chess_rect)
+    WIN.blit(chess_button, (chess_rect.centerx - chess_button.get_width() // 2, chess_rect.centery - chess_button.get_height() // 2))
+
+    # Quit-knop
+    quit_button = button_font.render("Quit", True, (255, 255, 255))
+    pygame.draw.rect(WIN, (28, 28, 28), quit_rect)
+    WIN.blit(quit_button, (quit_rect.centerx - quit_button.get_width() // 2, quit_rect.centery - quit_button.get_height() // 2))
+
+    pygame.display.flip()
+
 def main():
-    run = True
+    pygame.init()
+
+    run_main_screen = True
+    run_checkers_game = False
     clock = pygame.time.Clock()
-    game = Game(WIN)
+    game = None
 
-    while run:
+    while run_main_screen:
         clock.tick(FPS)
-
-        if game.winner() != None:
-            print(game.winner())
-            run = False
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                run = False
-            
-            if event.type == pygame.MOUSEBUTTONDOWN:
+                run_main_screen = False
+            elif event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
-                row, col = get_row_col_from_mouse(pos)
-                game.select(row, col)
 
-        game.update()
-    
+                # Checkers-knop
+                if checkers_rect.collidepoint(pos):
+                    run_main_screen = False
+                    run_checkers_game = True
+
+                # Chess-knop
+                elif chess_rect.collidepoint(pos):
+                    # Voeg hier de code toe om naar het schaakspel te gaan
+                    pass
+
+                # Quit-knop
+                elif quit_rect.collidepoint(pos):
+                    run_main_screen = False
+
+        draw_main_screen()
+
+    if run_checkers_game:
+        game = Game(WIN)
+
+        while True:
+            clock.tick(FPS)
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    pos = pygame.mouse.get_pos()
+                    row, col = get_row_col_from_mouse(pos)
+                    game.select(row, col)
+
+            game.update()
+
     pygame.quit()
 
-main()
+if __name__ == "__main__":
+    main()
