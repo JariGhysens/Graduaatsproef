@@ -6,9 +6,8 @@ FPS = 60
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Checkers')
 
-checkers_rect = pygame.Rect(WIDTH // 2 - 75, 250, 150, 50)
-chess_rect = pygame.Rect(WIDTH // 2 - 75, 350, 150, 50)
-quit_rect = pygame.Rect(WIDTH // 2 - 75, 450, 150, 50)
+checkers_rect = pygame.Rect(WIDTH // 2 - 75, 300, 150, 50)
+quit_rect = pygame.Rect(WIDTH // 2 - 75, 400, 150, 50)
 
 def get_row_col_from_mouse(pos):
     x, y = pos
@@ -20,21 +19,18 @@ def draw_main_screen():
     WIN.fill((50, 121, 168))
 
     welcome_font = pygame.font.SysFont(None, 36)
-    welcome_text = welcome_font.render("Welcome", True, (255, 255, 255))
 
-    WIN.blit(welcome_text, (WIDTH // 2 - welcome_text.get_width() // 2, 200))
+    
+    welcome_text = welcome_font.render("Welcome", True, (255, 255, 255)) 
+    WIN.blit(welcome_text, (WIDTH // 2 - welcome_text.get_width() // 2, 250))
 
     button_font = pygame.font.SysFont(None, 28)
 
     # Checkers-knop
     checkers_button = button_font.render("Checkers", True, (255, 255, 255))
     pygame.draw.rect(WIN, (28, 28, 28), checkers_rect)
+    
     WIN.blit(checkers_button, (checkers_rect.centerx - checkers_button.get_width() // 2, checkers_rect.centery - checkers_button.get_height() // 2))
-
-    # Chess-knop
-    chess_button = button_font.render("Chess", True, (255, 255, 255))
-    pygame.draw.rect(WIN, (28, 28, 28), chess_rect)
-    WIN.blit(chess_button, (chess_rect.centerx - chess_button.get_width() // 2, chess_rect.centery - chess_button.get_height() // 2))
 
     # Quit-knop
     quit_button = button_font.render("Quit", True, (255, 255, 255))
@@ -64,11 +60,6 @@ def main():
                 if checkers_rect.collidepoint(pos):
                     run_main_screen = False
                     run_checkers_game = True
-
-                # Chess-knop
-                elif chess_rect.collidepoint(pos):
-                    # Voeg hier de code toe om naar het schaakspel te gaan
-                    pass
 
                 # Quit-knop
                 elif quit_rect.collidepoint(pos):
