@@ -21,6 +21,8 @@ def draw_main_screen():
     welcome_font = pygame.font.SysFont(None, 36)
 
     
+
+    
     welcome_text = welcome_font.render("Welcome", True, (255, 255, 255)) 
     WIN.blit(welcome_text, (WIDTH // 2 - welcome_text.get_width() // 2, 250))
 
