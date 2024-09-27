@@ -1,6 +1,7 @@
 This is my GraduaatsProef for my second year at HoGent (forked from my HoGent-GitHub account) where I needed to experiment with python on my own. In this case I made a chess and checkers application.
 
 Checkers:
+
 ![image](https://github.com/user-attachments/assets/4e1f7683-591f-448a-a11f-8365b7184874)
 
 ![image](https://github.com/user-attachments/assets/9c50a18b-3f15-48bb-9f16-333fd8c96475)
